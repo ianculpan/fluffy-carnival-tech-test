@@ -5,18 +5,24 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyTaskTagRequest;
-use App\Http\Requests\CreateTaskTagRequest;
+use App\Http\Requests\StoreTaskTagRequest;
+use App\Models\TaskTags;
 
 class TaskTagController extends Controller
 {
 
-    public function store(CreateTaskTagRequest $request)
+    public function store(StoreTaskTagRequest $request)
     {
         $this->authorize('create', $request->taskTag);
 
-        $request->taskTag->save();
+        TaskTags::query()->create(
+            array_merge(
+                $request->validated(),
+                ['task_id' => $request->task->id, 'tag_id' => $request->tag->id, 'user_id' => auth()->user()->id]
+            )
+        );
 
-        return redirect()->to(route('tasks.edit', ['task' => $request->taskTag->task_id]));
+        return redirect()->to(route('tasks.edit', ['task' => $request->task->id]));
     }
 
     public function destroy(DestroyTaskTagRequest $request)

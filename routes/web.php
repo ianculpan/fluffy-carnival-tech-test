@@ -58,11 +58,7 @@ Route::middleware(['auth', 'verified'])
     ->name('task-tags.')
     ->controller(TaskTagController::class)
     ->group(function () {
-        Route::get('', 'index')->name('index');
-        Route::get('create', 'create')->name('create');
         Route::post('create', 'store')->name('store');
-        Route::get('edit/{tag}', 'edit')->name('edit');
-        Route::post('edit/{tag}', 'update')->name('update');
         Route::get('delete/{tag}', 'destroy')->name('destroy');
     });
 

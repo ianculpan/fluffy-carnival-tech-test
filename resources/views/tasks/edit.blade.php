@@ -11,9 +11,8 @@
                 <x-forms.text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$task->name" required autofocus />
                 <x-forms.input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-            @foreach($tags as $tag)
-            <x-partials.tag-task-row :tag="$tag" />
-            @endforeach
+            <x-partials.tags-select :tags="$tags" :task="$task" />
+
             <x-elements.primary-button>
                 Update
             </x-elements.primary-button>

@@ -37,20 +37,21 @@ class TaskController extends Controller
 
     public function store(CreateTaskRequest $request): RedirectResponse
     {
-        Task::query()->create(
+        $tags = $request->tags;
+        $task = Task::query()->create(
             array_merge(
                 $request->validated(),
-                ['user_id' => auth()->user()->id]
+                ['user_id' => auth()->user()->id, 'tags' => $tags]
             )
         );
-
+        $task->tags()->attach($tags);
         return redirect()->to(route('tasks.home'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
     {
         $this->authorize('update', $task);
-
+        $task->tags()->sync($request->tags);
         $task->update($request->validated());
 
         return redirect()->to(route('tasks.home'));

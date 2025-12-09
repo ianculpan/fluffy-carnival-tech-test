@@ -17,6 +17,7 @@ class CreateTaskRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:5|max:191',
+            'tags' => 'exists:tags,id',
         ];
     }
 }
