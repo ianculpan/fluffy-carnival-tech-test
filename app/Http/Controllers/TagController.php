@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\CreateTagRequest;
 use App\Http\Requests\UpdateTagRequest;
@@ -34,7 +33,7 @@ class TagController extends Controller
             )
         );
 
-        return redirect()->to(route('tags.index'));
+        return redirect()->to(route('tags.index'))->with('success', 'Tag created successfully');
     }
 
     public function show(Tag $tag)
@@ -55,16 +54,18 @@ class TagController extends Controller
 
         $tag->update($request->validated());
 
-        return redirect()->to(route('tags.index'));
+        return redirect()->to(route('tags.index'))->with('success', 'Tag updated successfully');
     }
 
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag): RedirectResponse
     {
-        //Only allow if unused and belongs to the user
         $this->authorize('delete', $tag);
+        if ($tag->tasks->isNotEmpty()) {
+            return redirect()->to(route('tags.index'))->with('error', 'Tag is used in tasks and cannot be deleted');
+        }
 
         $tag->delete();
 
-        return redirect()->to(route('tags.index'));
+        return redirect()->to(route('tags.index'))->with('success', 'Tag deleted successfully');
     }
 }

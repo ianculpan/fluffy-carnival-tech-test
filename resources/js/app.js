@@ -1,4 +1,4 @@
-import './bootstrap';
+import "./bootstrap";
 
 import { createApp } from "vue";
 
@@ -12,13 +12,13 @@ import ApplicationLogo from "./components/Layout/ApplicationLogo.vue";
 import DropdownLink from "./components/Layout/DropdownLink.vue";
 import Navigation from "./components/Layout/Navigation.vue";
 
-app.component('modal', Modal);
-app.component('form-modal', FormModal);
-app.component('logout-form', LogoutForm);
-app.component('event-button', EventButton);
-app.component('application-logo', ApplicationLogo);
-app.component('dropdown-link', DropdownLink);
-app.component('navigation', Navigation);
+app.component("modal", Modal);
+app.component("form-modal", FormModal);
+app.component("logout-form", LogoutForm);
+app.component("event-button", EventButton);
+app.component("application-logo", ApplicationLogo);
+app.component("dropdown-link", DropdownLink);
+app.component("navigation", Navigation);
 
 app.config.devtools = true;
-app.mount('#app');
+app.mount("#app");
