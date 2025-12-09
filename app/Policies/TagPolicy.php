@@ -23,7 +23,7 @@ class TagPolicy
 
     public function delete(User $user, Tag $tag): Response
     {
-        return $this->isUnused($tag) ? Response::denyWithStatus(403) : $this->canAccess($user, $tag);
+        return $this->canAccess($user, $tag);
     }
 
     private function canAccess(User $user, Tag $tag): Response
@@ -31,10 +31,5 @@ class TagPolicy
         return $user->id === $tag->user_id
             ? Response::allow()
             : Response::denyWithStatus(403);
-    }
-
-    private function isUnused(Tag $tag): bool
-    {
-        return $tag->tasks->isEmpty();
     }
 }
