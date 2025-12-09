@@ -51,8 +51,12 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
     {
         $this->authorize('update', $task);
-        $task->tags()->sync($request->tags);
+
         $task->update($request->validated());
+
+        $selectedTags = $request->tags ?? [];
+
+        $task->tags()->sync(array_filter($selectedTags));
 
         return redirect()->to(route('tasks.home'))->with('success', 'Task updated successfully');
     }

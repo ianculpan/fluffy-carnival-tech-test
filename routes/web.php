@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TagController;
-use App\Http\Controllers\TaskTagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,15 +49,6 @@ Route::middleware(['auth', 'verified'])
         Route::post('create', 'store')->name('store');
         Route::get('edit/{tag}', 'edit')->name('edit');
         Route::post('edit/{tag}', 'update')->name('update');
-        Route::get('delete/{tag}', 'destroy')->name('destroy');
-    });
-
-Route::middleware(['auth', 'verified'])
-    ->prefix('task-tags')
-    ->name('task-tags.')
-    ->controller(TaskTagController::class)
-    ->group(function () {
-        Route::post('create', 'store')->name('store');
         Route::get('delete/{tag}', 'destroy')->name('destroy');
     });
 
