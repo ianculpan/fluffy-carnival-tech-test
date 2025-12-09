@@ -21,15 +21,18 @@ class TaskController extends Controller
 
     public function create(): View
     {
+        $tags = auth()->user()?->tags ?? [];
 
-        return view('tasks.create');
+        return view('tasks.create', compact('tags'));
     }
 
     public function edit(Task $task): View
     {
         $this->authorize('update', $task);
 
-        return view('tasks.edit', compact('task'));
+        $tags = auth()->user()?->tags ?? [];
+
+        return view('tasks.edit', compact('task', 'tags'));
     }
 
     public function store(CreateTaskRequest $request): RedirectResponse

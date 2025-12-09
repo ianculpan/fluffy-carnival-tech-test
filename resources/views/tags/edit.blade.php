@@ -3,19 +3,16 @@
 @section('content')
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 text-gray-900">
-        <form method="POST" action="{{ route('tasks.store') }}">
+        <form method="POST" action="{{ route('tags.update', ['tag' =>  $tag]) }}">
             @csrf
-
             <div class="pb-4">
                 <x-forms.input-label for="name" :value="__('Name')" />
-                <x-forms.text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-forms.text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$tag->name" required autofocus />
                 <x-forms.input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-            @foreach($tags as $tag)
-            <x-partials.tag-task-row :tag="$tag" />
-            @endforeach
+
             <x-elements.primary-button>
-                Create
+                Update Tag
             </x-elements.primary-button>
         </form>
     </div>

@@ -39,7 +39,7 @@ Environment should then be available at [127.0.0.1:8000](http://127.0.0.1:8000)
 Please note, we do not necessarily expect you to complete all the below tasks, we simply ask
 that you complete as much as possible within a 2-3 hour timeframe.
 
-1. The "Task Edit" form errors on submit, discover and resolve the bug.
+1. The "Task Edit" form errors on submit, discover and resolve the bug. - Fixed incorrect csrf
 2. We wish to be able to add tags against task items, the requirements are as follows:
    1. User is able to create, edit & delete tags.
    2. Tags require a `name` property.
